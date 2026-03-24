@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ModernizeFlow - Transform Your Business</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .gradient-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(120, 40, 200, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(30, 140, 255, 0.15) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 5%;
+            position: relative;
+        }
+
+        .hero-content h1 {
+            font-size: 4.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            color: #b0b0b0;
+            margin-bottom: 2.5rem;
+            animation: fadeInUp 1s ease 0.2s backwards;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: fadeInUp 1s ease 0.4s backwards;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.5);
+        }
+
+        .floating-cards {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .float-card {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: rgba(102, 126, 234, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .float-card:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+        .float-card:nth-child(2) { top: 60%; right: 15%; animation-delay: 2s; }
+        .float-card:nth-child(3) { bottom: 20%; left: 20%; animation-delay: 4s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(5deg); }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section {
+            padding: 6rem 5%;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, #667eea 0%, #f093fb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .solution-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+            cursor: pointer;
+        }
+
+        .solution-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+            background: rgba(102, 126, 234, 0.05);
+        }
+
+        .solution-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .solution-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+
+        .solution-card p {
+            color: #b0b0b0;
+            line-height: 1.6;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .portfolio-item {
+            position: relative;
+            height: 400px;
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .portfolio-item:hover {
+            transform: scale(1.05);
+        }
+
+        .portfolio-image {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            transition: opacity 0.3s;
+        }
+
+        .portfolio-item:hover .portfolio-image {
+            opacity: 0.8;
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+        }
+
+        .portfolio-overlay h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .portfolio-overlay p {
+            color: #b0b0b0;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 3rem auto;
+            padding: 3rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #b0b0b0;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: #fff;
+            font-family: inherit;
+            transition: border 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .team-container {
+            max-width: 900px;
+            margin: 3rem auto;
+            text-align: center;
+        }
+
+        .team-intro {
+            margin-bottom: 3rem;
+            color: #b0b0b0;
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+
+        .founder-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 3rem;
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .founder-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+        }
+
+        .founder-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            flex-shrink: 0;
+            border: 3px solid rgba(102, 126, 234, 0.3);
+            overflow: hidden;
+        }
+
+        .founder-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .founder-info {
+            text-align: left;
+            flex: 1;
+        }
+
+        .founder-info h3 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #f093fb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .founder-title {
+            color: #667eea;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .founder-bio {
+            color: #b0b0b0;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .founder-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 10px;
+            color: #667eea;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-link:hover {
+            background: rgba(102, 126, 234, 0.2);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .founder-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .founder-info {
+                text-align: center;
+            }
+
+            .founder-social {
+                justify-content: center;
+            }
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 5%;
+            background: rgba(0, 0, 0, 0.5);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="gradient-bg"></div>
+
+    <nav>
+        <div class="logo">ModernizeFlow</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#solutions">Solutions</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#team">Team</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="floating-cards">
+            <div class="float-card"></div>
+            <div class="float-card"></div>
+            <div class="float-card"></div>
+        </div>
+        <div class="hero-content">
+            <h1>Transform Your Business<br>Into The Digital Age</h1>
+            <p>We modernize manual and semi-computerized businesses with cutting-edge software solutions</p>
+            <a href="#contact" class="cta-button">Start Your Journey</a>
+        </div>
+    </section>
+
+    <section id="solutions" class="section">
+        <h2 class="section-title">Our Solutions</h2>
+        <div class="solutions-grid">
+            <div class="solution-card">
+                <div class="solution-icon">📊</div>
+                <h3>Inventory Management</h3>
+                <p>Replace spreadsheets and paper logs with real-time inventory tracking, automated reordering, and detailed analytics.</p>
+            </div>
+            <div class="solution-card">
+                <div class="solution-icon">💰</div>
+                <h3>Point of Sale Systems</h3>
+                <p>Modern POS solutions with integrated payments, customer tracking, and sales analytics to replace manual registers.</p>
+            </div>
+            <div class="solution-card">
+                <div class="solution-icon">📱</div>
+                <h3>Customer Management</h3>
+                <p>Digitize customer records, automate communications, and build stronger relationships with CRM solutions.</p>
+            </div>
+            <div class="solution-card">
+                <div class="solution-icon">📈</div>
+                <h3>Business Analytics</h3>
+                <p>Transform raw data into actionable insights with automated reporting and predictive analytics.</p>
+            </div>
+            <div class="solution-card">
+                <div class="solution-icon">🔄</div>
+                <h3>Workflow Automation</h3>
+                <p>Eliminate repetitive manual tasks with intelligent automation that saves time and reduces errors.</p>
+            </div>
+            <div class="solution-card">
+                <div class="solution-icon">☁️</div>
+                <h3>Cloud Migration</h3>
+                <p>Move your business operations to the cloud for accessibility, security, and scalability.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio" class="section">
+        <h2 class="section-title">Success Stories</h2>
+        <div class="portfolio-grid">
+            <div class="portfolio-item">
+                <div class="portfolio-image">🛒</div>
+                <div class="portfolio-overlay">
+                    <h3>Retail Transformation</h3>
+                    <p>Modernized a 50-year-old retail chain with integrated POS and inventory management</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-image">🏭</div>
+                <div class="portfolio-overlay">
+                    <h3>Manufacturing Hub</h3>
+                    <p>Digitized production tracking and quality control for a mid-size manufacturer</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-image">🍽️</div>
+                <div class="portfolio-overlay">
+                    <h3>Restaurant Network</h3>
+                    <p>Implemented cloud-based ordering and kitchen management across 15 locations</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <h2 class="section-title">Let's Modernize Together</h2>
+        <form class="contact-form">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" placeholder="Your name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="your@email.com" required>
+            </div>
+            <div class="form-group">
+                <label for="business">Business Type</label>
+                <input type="text" id="business" placeholder="e.g., Retail, Manufacturing, Restaurant" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Tell us about your needs</label>
+                <textarea id="message" placeholder="Describe your current setup and what you'd like to modernize..." required></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Get Started</button>
+        </form>
+    </section>
+
+    <section id="team" class="section">
+        <h2 class="section-title">Meet The Team</h2>
+        <div class="team-container">
+            <p class="team-intro">
+                Innovation starts with vision. Our team is dedicated to bringing cutting-edge technology solutions 
+                to businesses ready to embrace the digital future.
+            </p>
+            <div class="founder-card">
+                <div class="founder-image" id="founderImage">
+                    👨‍💼
+                </div>
+                <div class="founder-info">
+                    <h3>Trevor Moyo</h3>
+                    <p class="founder-title">Founder & Chief Technology Officer</p>
+                    <p class="founder-bio">
+                        With a passion for transforming traditional businesses through technology, Trevor co-founded 
+                        ModernizeFlow with Tatenda Masuka to bridge the gap between manual operations and digital excellence. His vision 
+                        is to make enterprise-level software accessible to businesses of all sizes, helping them 
+                        compete in the modern marketplace.
+                    </p>
+                    <div class="founder-social">
+                        <a href="#" class="social-link">
+                            <span>💼</span>
+                            <span>LinkedIn</span>
+                        </a>
+                        <a href="#" class="social-link">
+                            <span>📧</span>
+                            <span>Email</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 ModernizeFlow. Transforming businesses, one innovation at a time.</p>
+    </footer>
+
+    <script>
+        // Handle image upload for founder photo
+        const founderImageDiv = document.getElementById('founderImage');
+        
+        // You can replace the emoji with your image by uncommenting and using this:
+         founderImageDiv.innerHTML = '<img src="Co-Founder.jpg" alt="Trevor Moyo">';
+        
+        // Form submission
+        document.querySelector('.contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your interest! We\'ll be in touch soon.');
+            this.reset();
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
