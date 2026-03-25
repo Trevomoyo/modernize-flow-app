@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ModernizeFlow — Transform Your Business</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+ 
+  <!-- CURSOR -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-trail" id="cursorTrail"></div>
+ 
+  <!-- AUTH MODAL -->
+  <div class="modal-overlay" id="authModal">
+    <div class="modal">
+      <button class="modal-close" id="closeModal">✕</button>
+      <div class="modal-tabs">
+        <button class="modal-tab active" data-tab="login">Sign In</button>
+        <button class="modal-tab" data-tab="signup">Create Account</button>
+      </div>
+ 
+      <div class="modal-form" id="loginForm">
+        <h2>Welcome back</h2>
+        <p class="modal-sub">Sign in to your ModernizeFlow account</p>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="loginEmail" placeholder="you@company.com" />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="loginPassword" placeholder="••••••••" />
+        </div>
+        <div class="form-message" id="loginMessage"></div>
+        <button class="btn-primary full" id="loginBtn">Sign In</button>
+        <p class="form-footer">No account? <span class="link-text" data-tab="signup">Create one</span></p>
+      </div>
+ 
+      <div class="modal-form hidden" id="signupForm">
+        <h2>Get started</h2>
+        <p class="modal-sub">Create your ModernizeFlow account</p>
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" id="signupFirst" placeholder="Trevor" />
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" id="signupLast" placeholder="Moyo" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="signupEmail" placeholder="you@company.com" />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="signupPassword" placeholder="Min. 8 characters" />
+        </div>
+        <div class="form-group">
+          <label>Business Type</label>
+          <select id="signupBusiness">
+            <option value="">Select your industry</option>
+            <option>Retail</option>
+            <option>Manufacturing</option>
+            <option>Restaurant / Hospitality</option>
+            <option>Healthcare</option>
+            <option>Finance</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-message" id="signupMessage"></div>
+        <button class="btn-primary full" id="signupBtn">Create Account</button>
+        <p class="form-footer">Already have an account? <span class="link-text" data-tab="login">Sign in</span></p>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- CHATBOT -->
+  <div class="chat-widget" id="chatWidget">
+    <div class="chat-header">
+      <div class="chat-header-info">
+        <div class="chat-avatar">MF</div>
+        <div>
+          <div class="chat-name">ModernizeFlow AI</div>
+          <div class="chat-status"><span class="dot"></span> Online</div>
+        </div>
+      </div>
+      <button class="chat-close" id="chatClose">✕</button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="chat-msg bot">
+        <div class="msg-bubble">Hi! I'm ModernizeFlow's assistant. I can help you understand our solutions, pricing, or connect you with the team. How can I help?</div>
+        <div class="msg-time">Just now</div>
+      </div>
+      <div class="chat-suggestions">
+        <button class="suggestion-chip" data-msg="What solutions do you offer?">Our solutions</button>
+        <button class="suggestion-chip" data-msg="How much does it cost?">Pricing</button>
+        <button class="suggestion-chip" data-msg="I want to book a demo">Book a demo</button>
+      </div>
+    </div>
+    <div class="chat-input-area">
+      <input type="text" id="chatInput" placeholder="Type a message..." />
+      <button id="chatSend">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+      </button>
+    </div>
+  </div>
+  <button class="chat-fab" id="chatFab">
+    <span class="chat-fab-icon">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+    </span>
+    <span class="chat-fab-close hidden">✕</span>
+    <div class="chat-fab-badge" id="chatBadge">1</div>
+  </button>
+ 
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <a href="#home" class="nav-logo">Modernize<span>Flow</span></a>
+    <div class="nav-links">
+      <a href="#solutions">Solutions</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#team">Team</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="nav-actions">
+      <button class="btn-ghost" id="openLogin">Sign In</button>
+      <button class="btn-primary" id="openSignup">Get Started</button>
+    </div>
+    <button class="nav-burger" id="navBurger">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+ 
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-bg">
+      <div class="grid-lines"></div>
+      <div class="glow glow-1"></div>
+      <div class="glow glow-2"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge reveal">🇿🇼 Built for African Business</div>
+      <h1 class="hero-title reveal delay-1">
+        Transform Your<br/>
+        <span class="gradient-text">Business</span><br/>
+        Into The Digital Age
+      </h1>
+      <p class="hero-sub reveal delay-2">
+        We modernize manual and semi-computerized businesses<br/>with cutting-edge software solutions built for Zimbabwe.
+      </p>
+      <div class="hero-cta reveal delay-3">
+        <button class="btn-primary large" id="heroGetStarted">Start Your Journey</button>
+        <a href="#portfolio" class="btn-ghost large">See Our Work</a>
+      </div>
+      <div class="hero-stats reveal delay-4">
+        <div class="stat"><span class="stat-num" data-target="50">0</span><span>+</span><div class="stat-label">Businesses Transformed</div></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num" data-target="15">0</span><span>+</span><div class="stat-label">Locations Served</div></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num" data-target="98">0</span><span>%</span><div class="stat-label">Client Satisfaction</div></div>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+ 
+  <!-- SOLUTIONS -->
+  <section class="solutions" id="solutions">
+    <div class="section-header reveal">
+      <div class="section-tag">What We Do</div>
+      <h2>Our Solutions</h2>
+      <p>End-to-end digital transformation for every corner of your business</p>
+    </div>
+    <div class="solutions-grid">
+      <div class="solution-card reveal" style="--delay:0s">
+        <div class="card-icon">📊</div>
+        <h3>Inventory Management</h3>
+        <p>Replace spreadsheets and paper logs with real-time inventory tracking, automated reordering, and detailed analytics.</p>
+        <div class="card-arrow">→</div>
+      </div>
+      <div class="solution-card reveal" style="--delay:0.1s">
+        <div class="card-icon">💰</div>
+        <h3>Point of Sale Systems</h3>
+        <p>Modern POS solutions with integrated payments, customer tracking, and sales analytics to replace manual registers.</p>
+        <div class="card-arrow">→</div>
+      </div>
+      <div class="solution-card reveal" style="--delay:0.2s">
+        <div class="card-icon">📱</div>
+        <h3>Customer Management</h3>
+        <p>Digitize customer records, automate communications, and build stronger relationships with CRM solutions.</p>
+        <div class="card-arrow">→</div>
+      </div>
+      <div class="solution-card reveal" style="--delay:0.3s">
+        <div class="card-icon">📈</div>
+        <h3>Business Analytics</h3>
+        <p>Transform raw data into actionable insights with automated reporting and predictive analytics.</p>
+        <div class="card-arrow">→</div>
+      </div>
+      <div class="solution-card reveal" style="--delay:0.4s">
+        <div class="card-icon">🔄</div>
+        <h3>Workflow Automation</h3>
+        <p>Eliminate repetitive manual tasks with intelligent automation that saves time and reduces errors.</p>
+        <div class="card-arrow">→</div>
+      </div>
+      <div class="solution-card reveal" style="--delay:0.5s">
+        <div class="card-icon">☁️</div>
+        <h3>Cloud Migration</h3>
+        <p>Move your business operations to the cloud for accessibility, security, and scalability.</p>
+        <div class="card-arrow">→</div>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- PORTFOLIO -->
+  <section class="portfolio" id="portfolio">
+    <div class="section-header reveal">
+      <div class="section-tag">Success Stories</div>
+      <h2>Client Transformations</h2>
+      <p>Real results for real businesses across Zimbabwe</p>
+    </div>
+    <div class="portfolio-grid">
+      <div class="portfolio-card reveal" style="--delay:0s">
+        <div class="portfolio-icon">🛒</div>
+        <div class="portfolio-tag">Retail</div>
+        <h3>Retail Transformation</h3>
+        <p>Modernized a 50-year-old retail chain with integrated POS and inventory management across 8 branches.</p>
+        <div class="portfolio-metrics">
+          <span>↑ 34% Revenue</span>
+          <span>↓ 60% Errors</span>
+        </div>
+      </div>
+      <div class="portfolio-card reveal" style="--delay:0.15s">
+        <div class="portfolio-icon">🏭</div>
+        <div class="portfolio-tag">Manufacturing</div>
+        <h3>Manufacturing Hub</h3>
+        <p>Digitized production tracking and quality control for a mid-size manufacturer, eliminating paper logs.</p>
+        <div class="portfolio-metrics">
+          <span>↑ 45% Efficiency</span>
+          <span>↓ 80% Paperwork</span>
+        </div>
+      </div>
+      <div class="portfolio-card reveal" style="--delay:0.3s">
+        <div class="portfolio-icon">🍽️</div>
+        <div class="portfolio-tag">Hospitality</div>
+        <h3>Restaurant Network</h3>
+        <p>Implemented cloud-based ordering and kitchen management across 15 restaurant locations.</p>
+        <div class="portfolio-metrics">
+          <span>15 Locations</span>
+          <span>↑ 28% Orders</span>
+        </div>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- TEAM -->
+  <section class="team" id="team">
+    <div class="section-header reveal">
+      <div class="section-tag">The People</div>
+      <h2>Meet The Team</h2>
+      <p>Innovation starts with vision. We bridge the gap between manual and digital.</p>
+    </div>
+    <div class="team-grid">
+      <div class="team-card reveal">
+        <div class="team-avatar">TM</div>
+        <h3>Trevor Moyo</h3>
+        <div class="team-role">Co-Founder & CTO</div>
+        <p>With a passion for transforming traditional businesses through technology, Trevor co-founded ModernizeFlow to bridge the gap between manual operations and digital excellence.</p>
+        <div class="team-links">
+          <a href="https://www.linkedin.com/in/trevor-moyo-5349253a9" target="_blank" rel="noopener noreferrer" class="team-link">💼 LinkedIn</a>
+          <a href="/cdn-cgi/l/email-protection#4f222036203b3d2a39203d797d7b0f28222e2623612c2022" class="team-link">📧 Email</a>
+        </div>
+      </div>
+      <div class="team-card reveal delay-1">
+        <div class="team-avatar">TM</div>
+        <h3>Tatenda Masuka</h3>
+        <div class="team-role">Co-Founder & CEO</div>
+        <p>Tatenda steers the vision and strategy of ModernizeFlow, driving the company's mission to make enterprise-level software accessible to businesses of all sizes across Zimbabwe.</p>
+        <div class="team-links">
+          <a href="#" class="team-link">💼 LinkedIn</a>
+          <a href="#" class="team-link">📧 Email</a>
+        </div>
+      </div>
+      <div class="team-card reveal delay-2">
+        <div class="team-avatar">MM</div>
+        <h3>Milton Mukundiwa</h3>
+        <div class="team-role">Co-Founder & COO</div>
+        <p>Milton leads operations and client success at ModernizeFlow, ensuring every digital transformation project is delivered with precision, on time, and exceeds expectations.</p>
+        <div class="team-links">
+          <a href="#" class="team-link">💼 LinkedIn</a>
+          <a href="#" class="team-link">📧 Email</a>
+        </div>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- CONTACT -->
+  <section class="contact-section" id="contact">
+    <div class="contact-inner">
+      <div class="contact-left reveal">
+        <div class="section-tag">Get In Touch</div>
+        <h2>Let's Modernize<br/>Together</h2>
+        <p>Tell us about your business and we'll craft a tailored digital transformation roadmap.</p>
+        <div class="contact-details">
+          <div class="contact-detail">📍 Harare, Zimbabwe</div>
+          <div class="contact-detail">📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="38505d5454577855575c5d4a5651425d5e54574f165b5716424f">[email&#160;protected]</a></div>
+          <div class="contact-detail">📞 +263 78 000 0000</div>
+        </div>
+      </div>
+      <div class="contact-form-wrap reveal delay-1">
+        <form id="contactForm" class="contact-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Your Name</label>
+              <input type="text" name="name" placeholder="John Banda" required />
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" name="email" placeholder="john@business.co.zw" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Business Type</label>
+            <select name="businessType">
+              <option value="">Select your industry</option>
+              <option>Retail</option>
+              <option>Manufacturing</option>
+              <option>Restaurant / Hospitality</option>
+              <option>Healthcare</option>
+              <option>Finance</option>
+              <option>Agriculture</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Tell us about your needs</label>
+            <textarea name="message" rows="4" placeholder="Describe your current challenges and what you'd like to achieve..."></textarea>
+          </div>
+          <input type="hidden" name="form-name" value="contact" />
+          <div class="form-message" id="contactMessage"></div>
+          <button type="submit" class="btn-primary full large" id="contactSubmit">
+            <span>Send Message</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="nav-logo">Modernize<span>Flow</span></div>
+        <p>Transforming businesses, one innovation at a time. Built in Zimbabwe, built for Zimbabwe.</p>
+        <div class="footer-social">
+          <a href="https://www.linkedin.com/in/trevor-moyo-5349253a9" target="_blank" rel="noopener noreferrer" class="social-link">💼</a>
+          <a href="mailto:modernizeflow@gmail.com" class="social-link">📧</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Company</div>
+        <a href="#solutions">Solutions</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#team">Our Team</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Solutions</div>
+        <a href="#solutions">Inventory Management</a>
+        <a href="#solutions">Point of Sale</a>
+        <a href="#solutions">Customer CRM</a>
+        <a href="#solutions">Cloud Migration</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Contact</div>
+        <a href="mailto:modernizeflow@gmail.com">modernizeflow@gmail.com</a>
+        <a href="tel:+263780000000">+263 78 000 0000</a>
+        <span>Harare, Zimbabwe</span>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 ModernizeFlow. All rights reserved.</span>
+      <span>Transforming businesses, one innovation at a time.</span>
+    </div>
+  </footer>
+ 
+  <script src="main.js"></script>
+</body>
+</html>
