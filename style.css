@@ -660,3 +660,35 @@ section { padding: 100px 5%; }
   display: inline-block; margin-right: 8px;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── COOKIE BANNER ── */
+.cookie-banner {
+  position: fixed; bottom: 24px; left: 24px;
+  z-index: 800;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px 24px;
+  max-width: 480px;
+  display: flex; align-items: center; gap: 20px;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+  transform: translateY(0);
+  transition: var(--transition);
+  flex-wrap: wrap;
+}
+.cookie-banner.hidden {
+  transform: translateY(120%);
+  opacity: 0;
+  pointer-events: none;
+}
+.cookie-content {
+  display: flex; align-items: flex-start; gap: 12px; flex: 1;
+}
+.cookie-content span { font-size: 1.4rem; flex-shrink: 0; }
+.cookie-content p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
+.cookie-actions { display: flex; gap: 10px; flex-shrink: 0; }
+.cookie-actions .btn-ghost { padding: 8px 16px; font-size: 0.85rem; }
+.cookie-actions .btn-primary { padding: 8px 16px; font-size: 0.85rem; }
+@media (max-width: 600px) {
+  .cookie-banner { left: 16px; right: 16px; bottom: 16px; max-width: 100%; }
+}
